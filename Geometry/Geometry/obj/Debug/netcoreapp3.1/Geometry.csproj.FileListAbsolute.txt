@@ -1,0 +1,13 @@
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\bin\Debug\netcoreapp3.1\Geometry.exe
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\bin\Debug\netcoreapp3.1\Geometry.deps.json
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\bin\Debug\netcoreapp3.1\Geometry.runtimeconfig.json
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\bin\Debug\netcoreapp3.1\Geometry.runtimeconfig.dev.json
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\bin\Debug\netcoreapp3.1\Geometry.dll
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\bin\Debug\netcoreapp3.1\Geometry.pdb
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.AssemblyInfo.cs
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.dll
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.pdb
+C:\Users\User\Desktop\Geometry\Geometry\Geometry\obj\Debug\netcoreapp3.1\Geometry.genruntimeconfig.cache
