@@ -78,6 +78,8 @@ namespace Geometry
                 Console.WriteLine("Error.Количество строк должно быть не меньше 20");
             }
 
+            Console.Clear();
+
             return row;
         }
 
@@ -89,6 +91,8 @@ namespace Geometry
             {
                 Console.WriteLine("Error.Количество столбцов должно быть не меньше 30");
             }
+
+            Console.Clear();
 
             return column;
         }

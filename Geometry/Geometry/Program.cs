@@ -16,9 +16,7 @@ namespace Geometry
 
             Game game = new Game(field, firstPlayer, secondPlayer,attempts);
 
-            field.SetField();
-
-            field.GetField();
+            game.Start();
 
             int i = 0;
 
@@ -40,6 +38,8 @@ namespace Geometry
             {
                 Console.WriteLine("error");
             }
+
+            Console.Clear();
 
             return number;
         }

@@ -31,6 +31,15 @@ namespace Geometry
             secondPlayer.Symbol = "#";
         }
 
+        public void Start()
+        {
+            Field.SetField();
+
+            Field.GetField();
+
+            ShowPoint();
+        }
+
         public Point GetPointFromPlayer(Player player)
         {
             Point point;
@@ -62,7 +71,9 @@ namespace Geometry
                 {
                     Field.PlayField[y + i, x + j] = FirstPlayer.Symbol;
                 }
-            }          
+            }
+
+            SecondPlayer.Score += row * column;
 
             Console.Clear();
 
@@ -87,12 +98,14 @@ namespace Geometry
 
             for (int i = 0; i <= row; i++)
             {
-                for (int j = 0; j < column; j++)
+                for (int j = 0; j <= column; j++)
                 {
                     Field.PlayField[y + i, x + j] = SecondPlayer.Symbol;
                 }
             }
-            //FirstPlayer.Score += row * column;
+
+            SecondPlayer.Score += row * column;
+
             Console.Clear();
 
             Field.GetField();
@@ -101,6 +114,11 @@ namespace Geometry
         private int GetRandomNumberForFigure() 
         {            
             return random.Next(0, 5);
+        }
+
+        public void ShowPoint()
+        {
+            Console.Write($"\t\t\t|Player_1|{FirstPlayer.Score}:{FirstPlayer.Score}|Player_2|\n");
         }
     }
 }
