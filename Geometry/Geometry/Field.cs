@@ -34,7 +34,7 @@ namespace Geometry
         }
 
         public void GetField()
-        {
+        {            
             Console.Write("  |");
 
             for (int i = 0; i < Column; i++)

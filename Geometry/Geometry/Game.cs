@@ -14,17 +14,13 @@ namespace Geometry
 
         public Player SecondPlayer { get; set; }
 
-        public int Attempts { get; private set; }
-
-        public Game(Field field, Player firstPlayer, Player secondPlayer,int attempts)
+        public Game(Field field, Player firstPlayer, Player secondPlayer)
         {
             this.Field = field;
 
             this.FirstPlayer = firstPlayer;
 
             this.SecondPlayer = secondPlayer;
-
-            this.Attempts = attempts;
 
             firstPlayer.Symbol = "*";
 
@@ -33,11 +29,44 @@ namespace Geometry
 
         public void Start()
         {
+            int temp = 0;
+
+            SetAttempts();
+
             Field.SetField();
 
             Field.GetField();
 
             ShowPoint();
+
+            while (temp <= FirstPlayer.Attempts)
+            {              
+                GetMoveFirstPlayer();
+
+                GetMoveSecondPlayer();
+
+                temp++;
+            }
+
+            GetWinner();
+        }
+
+        private void SetAttempts()
+        {
+            Console.WriteLine("Введите количество ходов");
+
+            int number;
+
+            while (!int.TryParse(Console.ReadLine(), out number) || number < 20)
+            {
+                Console.WriteLine("Error.Количество ходов должно быть не меньше 20");
+            }
+
+            FirstPlayer.Attempts = number;
+
+            SecondPlayer.Attempts = number;
+
+            Console.Clear();
         }
 
         public Point GetPointFromPlayer(Player player)
@@ -67,17 +96,21 @@ namespace Geometry
 
             for (int i = 0; i <= row; i++)
             {
-                for (int j = 0; j < column; j++)
+                for (int j = 0; j <= column; j++)
                 {
                     Field.PlayField[y + i, x + j] = FirstPlayer.Symbol;
                 }
             }
 
-            SecondPlayer.Score += row * column;
+            FirstPlayer.Score += (row + 1) * (column + 1);
+
+            FirstPlayer.Attempts--;
 
             Console.Clear();
 
             Field.GetField();
+
+            ShowPoint();
         }
 
         public void GetMoveSecondPlayer()
@@ -104,21 +137,45 @@ namespace Geometry
                 }
             }
 
-            SecondPlayer.Score += row * column;
+            SecondPlayer.Score += (row + 1) * (column + 1);
+
+            SecondPlayer.Attempts--;
 
             Console.Clear();
 
             Field.GetField();
+
+            ShowPoint();
         }
 
-        private int GetRandomNumberForFigure() 
-        {            
+        private int GetRandomNumberForFigure()
+        {
             return random.Next(0, 5);
         }
 
         public void ShowPoint()
         {
-            Console.Write($"\t\t\t|Player_1|{FirstPlayer.Score}:{FirstPlayer.Score}|Player_2|\n");
+            Console.WriteLine($"\t\t\t|Player_1({FirstPlayer.Symbol})|{FirstPlayer.Score}:{SecondPlayer.Score}|Player_2({SecondPlayer.Symbol})|");
+
+            Console.WriteLine($"\t\t\t|Осталось ходов у Player_1|:{FirstPlayer.Attempts}");
+
+            Console.WriteLine($"\t\t\t|Осталось ходов у Player_2({SecondPlayer.Symbol})|:{SecondPlayer.Attempts}");
+        }
+
+        private void GetWinner()
+        {
+            if (FirstPlayer.Score > SecondPlayer.Score)
+            {
+                Console.WriteLine("Победитель Player_1");
+            }
+            else if (FirstPlayer.Score < SecondPlayer.Score)
+            {
+                Console.WriteLine("Победитель Player_2");
+            }
+            else
+            {
+                Console.WriteLine("Ничья");
+            }
         }
     }
 }

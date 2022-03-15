@@ -14,6 +14,8 @@ namespace Geometry
 
         public string Symbol { get; set; }
 
+        public int Attempts { get; set; }
+
         public Point GetCoordination(Field field)
         {
             Console.WriteLine("Введите координату X");
