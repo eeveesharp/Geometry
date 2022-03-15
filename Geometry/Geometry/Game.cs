@@ -73,7 +73,15 @@ namespace Geometry
         {
             Point point;
 
-            point = player.GetCoordination(Field);
+            do
+            {
+                point = player.GetCoordination(Field);
+
+                if (IsPointFill(point))
+                {
+                    Console.WriteLine("Error.Координата занята");
+                }
+            } while (IsPointFill(point));          
 
             return point;
         }
@@ -129,6 +137,8 @@ namespace Geometry
 
             int column = GetRandomNumberForFigure();
 
+            Checked(x, y, row, column);
+
             for (int i = 0; i <= row; i++)
             {
                 for (int j = 0; j <= column; j++)
@@ -159,7 +169,7 @@ namespace Geometry
 
             Console.WriteLine($"\t\t\t|Осталось ходов у Player_1|:{FirstPlayer.Attempts}");
 
-            Console.WriteLine($"\t\t\t|Осталось ходов у Player_2({SecondPlayer.Symbol})|:{SecondPlayer.Attempts}");
+            Console.WriteLine($"\t\t\t|Осталось ходов у Player_2|:{SecondPlayer.Attempts}");
         }
 
         private void GetWinner()
@@ -175,6 +185,34 @@ namespace Geometry
             else
             {
                 Console.WriteLine("Ничья");
+            }
+        }
+
+        private bool IsPointFill(Point point)
+        {
+            bool isPointFill = false;
+
+            if (Field.PlayField[point.Y, point.X] == "*" || Field.PlayField[point.Y, point.X] == "#")
+            {
+                isPointFill = true;
+            }
+
+            return isPointFill;
+        }
+
+        private void Checked(int x, int y,int row,int column)
+        {
+            for (int i = 0; i <= row; i++)
+            {
+                for (int j = 0; j <= column; j++)
+                {
+                    if (Field.PlayField[y + i, x + j] == "*" || Field.PlayField[y + i, x + j] == "#")
+                    {
+                        Console.WriteLine("Error.Фигура залазит на другую фигуру");
+
+                        return;
+                    }                  
+                }
             }
         }
     }
