@@ -29,9 +29,7 @@ namespace Geometry
 
         public void Start()
         {
-            int temp = 0;
-
-            SetAttempts();
+            SetAttempts();            
 
             Field.SetField();
 
@@ -39,13 +37,15 @@ namespace Geometry
 
             ShowPoint();
 
-            while (temp <= FirstPlayer.Attempts)
-            {              
+            int temp = FirstPlayer.Attempts;
+
+            while (temp > 0)
+            {
                 GetMoveFirstPlayer();
 
                 GetMoveSecondPlayer();
 
-                temp++;
+                temp--;
             }
 
             GetWinner();
@@ -57,7 +57,7 @@ namespace Geometry
 
             int number;
 
-            while (!int.TryParse(Console.ReadLine(), out number) || number < 20)
+            while (!int.TryParse(Console.ReadLine(), out number) || number < 4)
             {
                 Console.WriteLine("Error.Количество ходов должно быть не меньше 20");
             }
@@ -81,7 +81,7 @@ namespace Geometry
                 {
                     Console.WriteLine("Error.Координата занята");
                 }
-            } while (IsPointFill(point));          
+            } while (IsPointFill(point));
 
             return point;
         }
@@ -94,21 +94,20 @@ namespace Geometry
 
             Point point = GetPointFromPlayer(FirstPlayer);
 
-            int x = point.X;
-
-            int y = point.Y;
-
             int row = GetRandomNumberForFigure();
 
             int column = GetRandomNumberForFigure();
 
-            for (int i = 0; i <= row; i++)
+            while (!IsChecked(point.X, point.Y, row, column))
             {
-                for (int j = 0; j <= column; j++)
-                {
-                    Field.PlayField[y + i, x + j] = FirstPlayer.Symbol;
-                }
+                point = GetPointFromPlayer(FirstPlayer);
+
+                row = GetRandomNumberForFigure();
+
+                column = GetRandomNumberForFigure();
             }
+
+            GetFigureOnField(FirstPlayer, point.X, point.Y, row, column);
 
             FirstPlayer.Score += (row + 1) * (column + 1);
 
@@ -127,25 +126,22 @@ namespace Geometry
 
             Console.WriteLine(new string('-', 30));
 
-            Point point = GetPointFromPlayer(FirstPlayer);
-
-            int x = point.X;
-
-            int y = point.Y;
+            Point point = GetPointFromPlayer(SecondPlayer);
 
             int row = GetRandomNumberForFigure();
 
             int column = GetRandomNumberForFigure();
 
-            Checked(x, y, row, column);
-
-            for (int i = 0; i <= row; i++)
+            while (!IsChecked(point.X, point.Y, row, column))
             {
-                for (int j = 0; j <= column; j++)
-                {
-                    Field.PlayField[y + i, x + j] = SecondPlayer.Symbol;
-                }
+                point = GetPointFromPlayer(SecondPlayer);
+
+                row = GetRandomNumberForFigure();
+
+                column = GetRandomNumberForFigure();
             }
+
+            GetFigureOnField(SecondPlayer, point.X, point.Y, row, column);
 
             SecondPlayer.Score += (row + 1) * (column + 1);
 
@@ -200,19 +196,48 @@ namespace Geometry
             return isPointFill;
         }
 
-        private void Checked(int x, int y,int row,int column)
+        private void GetFigureOnField(Player player, int x, int y, int row, int column)
         {
             for (int i = 0; i <= row; i++)
             {
                 for (int j = 0; j <= column; j++)
                 {
-                    if (Field.PlayField[y + i, x + j] == "*" || Field.PlayField[y + i, x + j] == "#")
-                    {
-                        Console.WriteLine("Error.Фигура залазит на другую фигуру");
-
-                        return;
-                    }                  
+                    Field.PlayField[y + i, x + j] = player.Symbol;
                 }
+            }
+        }
+
+        private bool IsChecked(int x, int y, int row, int column)
+        {
+            try
+            {
+                int temp = 0;
+
+                for (int i = 0; i <= row; i++)
+                {
+                    for (int j = 0; j <= column; j++)
+                    {
+                        if (Field.PlayField[y + i, x + j] == "-")
+                        {
+                            temp++;
+                        }
+                    }
+                }
+
+                if (temp < (row + 1) * (column + 1))
+                {
+                    Console.WriteLine("Error.Фигура не влазит либо залазит на другую.Выберите другую координату");
+
+                    return false;
+                }
+
+                return true;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Фигура выходит за пределы поля");
+
+                return false;
             }
         }
     }
