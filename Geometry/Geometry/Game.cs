@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Geometry
 {
@@ -57,7 +58,7 @@ namespace Geometry
 
             int number;
 
-            while (!int.TryParse(Console.ReadLine(), out number) || number < 4)
+            while (!int.TryParse(Console.ReadLine(), out number) || number < 20)
             {
                 Console.WriteLine("Error.Количество ходов должно быть не меньше 20");
             }
@@ -98,13 +99,32 @@ namespace Geometry
 
             if (!isMove(row, column))
             {
-                Console.WriteLine("Переброс!!!");
+                Console.WriteLine("Переброс...(Это может занять несколько секунд)");
+
+                Thread.Sleep(6000);
 
                 row = GetRandomNumberForFigure();
 
                 column = GetRandomNumberForFigure();
+
+                if (!isMove(row, column))
+                {
+                    Console.WriteLine("Неудачно!!!");
+
+                    Thread.Sleep(6000);
+
+                    FirstPlayer.Attempts--;
+
+                    Console.Clear();
+
+                    Field.GetField();
+
+                    ShowPoint();
+
+                    return;
+                }
             }
-            else
+            if (isMove(row, column))
             {
                 Point point = GetPointFromPlayer(FirstPlayer);
 
@@ -143,13 +163,32 @@ namespace Geometry
 
             if (!isMove(row, column))
             {
-                Console.WriteLine("Переброс!!!");
+                Console.WriteLine("Переброс...(Это может занять несколько секунд)");
+
+                Thread.Sleep(6000);
 
                 row = GetRandomNumberForFigure();
 
                 column = GetRandomNumberForFigure();
+
+                if (!isMove(row, column))
+                {
+                    Console.WriteLine("Неудачно!!!");
+
+                    Thread.Sleep(6000);
+
+                    SecondPlayer.Attempts--;
+
+                    Console.Clear();
+
+                    Field.GetField();
+
+                    ShowPoint();
+
+                    return;
+                }
             }
-            else
+            if (isMove(row, column))
             {
                 Point point = GetPointFromPlayer(SecondPlayer);
 
@@ -274,14 +313,11 @@ namespace Geometry
                     if (Field.PlayField[i, j] == "-")
                     {
                         temp = QW(i,j,row, column);
-                    }
-                    if (temp >= (row + 1) * (column + 1))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
+
+                        if (temp >= (row + 1) * (column + 1))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
