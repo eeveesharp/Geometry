@@ -73,7 +73,7 @@ namespace Geometry
         {
             int row;
 
-            while (!int.TryParse(Console.ReadLine(), out row) || row < 20)
+            while (!int.TryParse(Console.ReadLine(), out row)) //|| row < 20)
             {
                 Console.WriteLine("Error.Количество строк должно быть не меньше 20");
             }
@@ -87,7 +87,7 @@ namespace Geometry
         {
             int column;
 
-            while (!int.TryParse(Console.ReadLine(), out column) || column < 30)
+            while (!int.TryParse(Console.ReadLine(), out column))// || column < 30)
             {
                 Console.WriteLine("Error.Количество столбцов должно быть не меньше 30");
             }

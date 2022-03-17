@@ -29,7 +29,7 @@ namespace Geometry
 
         public void Start()
         {
-            SetAttempts();            
+            SetAttempts();
 
             Field.SetField();
 
@@ -92,32 +92,43 @@ namespace Geometry
 
             Console.WriteLine(new string('-', 30));
 
-            Point point = GetPointFromPlayer(FirstPlayer);
-
             int row = GetRandomNumberForFigure();
 
             int column = GetRandomNumberForFigure();
 
-            while (!IsChecked(point.X, point.Y, row, column))
+            if (!isMove(row, column))
             {
-                point = GetPointFromPlayer(FirstPlayer);
+                Console.WriteLine("Переброс!!!");
 
                 row = GetRandomNumberForFigure();
 
                 column = GetRandomNumberForFigure();
             }
+            else
+            {
+                Point point = GetPointFromPlayer(FirstPlayer);
 
-            GetFigureOnField(FirstPlayer, point.X, point.Y, row, column);
+                while (!IsChecked(point.X, point.Y, row, column))
+                {
+                    point = GetPointFromPlayer(FirstPlayer);
 
-            FirstPlayer.Score += (row + 1) * (column + 1);
+                    row = GetRandomNumberForFigure();
 
-            FirstPlayer.Attempts--;
+                    column = GetRandomNumberForFigure();
+                }
 
-            Console.Clear();
+                GetFigureOnField(FirstPlayer, point.X, point.Y, row, column);
 
-            Field.GetField();
+                FirstPlayer.Score += (row + 1) * (column + 1);
 
-            ShowPoint();
+                FirstPlayer.Attempts--;
+
+                Console.Clear();
+
+                Field.GetField();
+
+                ShowPoint();
+            }
         }
 
         public void GetMoveSecondPlayer()
@@ -126,32 +137,43 @@ namespace Geometry
 
             Console.WriteLine(new string('-', 30));
 
-            Point point = GetPointFromPlayer(SecondPlayer);
-
             int row = GetRandomNumberForFigure();
 
             int column = GetRandomNumberForFigure();
 
-            while (!IsChecked(point.X, point.Y, row, column))
+            if (!isMove(row, column))
             {
-                point = GetPointFromPlayer(SecondPlayer);
+                Console.WriteLine("Переброс!!!");
 
                 row = GetRandomNumberForFigure();
 
                 column = GetRandomNumberForFigure();
             }
+            else
+            {
+                Point point = GetPointFromPlayer(SecondPlayer);
 
-            GetFigureOnField(SecondPlayer, point.X, point.Y, row, column);
+                while (!IsChecked(point.X, point.Y, row, column))
+                {
+                    point = GetPointFromPlayer(SecondPlayer);
 
-            SecondPlayer.Score += (row + 1) * (column + 1);
+                    row = GetRandomNumberForFigure();
 
-            SecondPlayer.Attempts--;
+                    column = GetRandomNumberForFigure();
+                }
 
-            Console.Clear();
+                GetFigureOnField(SecondPlayer, point.X, point.Y, row, column);
 
-            Field.GetField();
+                SecondPlayer.Score += (row + 1) * (column + 1);
 
-            ShowPoint();
+                SecondPlayer.Attempts--;
+
+                Console.Clear();
+
+                Field.GetField();
+
+                ShowPoint();
+            }
         }
 
         private int GetRandomNumberForFigure()
@@ -239,6 +261,57 @@ namespace Geometry
 
                 return false;
             }
+        }
+
+        private bool isMove(int row, int column)
+        {
+            int temp = 0;
+
+            for (int i = 0; i < Field.Row; i++)
+            {
+                for (int j = 0; j < Field.Column; j++)
+                {
+                    if (Field.PlayField[i, j] == "-")
+                    {
+                        temp = QW(i,j,row, column);
+                    }
+                    if (temp >= (row + 1) * (column + 1))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private int QW(int x,int y,int row, int column)
+        {
+            int temp = 0;
+
+            try
+            {
+                for (int i = 0; i <= row; i++)
+                {
+                    for (int j = 0; j <= column; j++)
+                    {
+                        if (Field.PlayField[i + x, j + y] == "-")
+                        {
+                            temp++;
+                        }
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return 0;
+            }          
+
+            return temp;
         }
     }
 }
