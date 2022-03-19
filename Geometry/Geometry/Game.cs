@@ -58,7 +58,7 @@ namespace Geometry
 
             int number;
 
-            while (!int.TryParse(Console.ReadLine(), out number) || number < 20)
+            while (!int.TryParse(Console.ReadLine(), out number) || number < 4)
             {
                 Console.WriteLine("Error.Количество ходов должно быть не меньше 20");
             }
@@ -312,7 +312,7 @@ namespace Geometry
                 {
                     if (Field.PlayField[i, j] == "-")
                     {
-                        temp = QW(i,j,row, column);
+                        temp = GetSquare(i,j,row, column);
 
                         if (temp >= (row + 1) * (column + 1))
                         {
@@ -325,7 +325,7 @@ namespace Geometry
             return false;
         }
 
-        private int QW(int x,int y,int row, int column)
+        private int GetSquare(int x,int y,int row, int column)
         {
             int temp = 0;
 
