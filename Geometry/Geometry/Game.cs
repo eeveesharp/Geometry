@@ -58,7 +58,7 @@ namespace Geometry
 
             int number;
 
-            while (!int.TryParse(Console.ReadLine(), out number) || number < 4)
+            while (!int.TryParse(Console.ReadLine(), out number) || number < 20)
             {
                 Console.WriteLine("Error.Количество ходов должно быть не меньше 20");
             }
