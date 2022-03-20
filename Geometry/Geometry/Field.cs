@@ -22,6 +22,17 @@ namespace Geometry
 
             Column = GetCorrectNumberColumn();
 
+            try
+            {
+                PlayField = new string[Row, Column];
+            }
+            catch (OutOfMemoryException)
+            {
+                Console.WriteLine("Исключение по размеру");
+
+                SetField();
+            }
+
             PlayField = new string[Row, Column];
 
             for (int i = 0; i < Row; i++)
@@ -64,9 +75,7 @@ namespace Geometry
                 }
 
                 Console.WriteLine();
-            }
-
-            Console.SetWindowSize((int)(Column * 4.15), (int)(Row * 1.4));
+            }       
         }
 
         private int GetCorrectNumberRow()

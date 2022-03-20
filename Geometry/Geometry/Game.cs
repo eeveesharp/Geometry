@@ -97,21 +97,21 @@ namespace Geometry
 
             int column = GetRandomNumberForFigure();
 
-            if (!isMove(row, column))
+            if (!IsMove(row, column))
             {
                 Console.WriteLine("Переброс...(Это может занять несколько секунд)");
 
-                Thread.Sleep(6000);
+                Thread.Sleep(4000);
 
                 row = GetRandomNumberForFigure();
 
                 column = GetRandomNumberForFigure();
 
-                if (!isMove(row, column))
+                if (!IsMove(row, column))
                 {
                     Console.WriteLine("Неудачно!!!");
 
-                    Thread.Sleep(6000);
+                    Thread.Sleep(4000);
 
                     FirstPlayer.Attempts--;
 
@@ -124,17 +124,13 @@ namespace Geometry
                     return;
                 }
             }
-            if (isMove(row, column))
+            if (IsMove(row, column))
             {
                 Point point = GetPointFromPlayer(FirstPlayer);
 
                 while (!IsChecked(point.X, point.Y, row, column))
                 {
                     point = GetPointFromPlayer(FirstPlayer);
-
-                    row = GetRandomNumberForFigure();
-
-                    column = GetRandomNumberForFigure();
                 }
 
                 GetFigureOnField(FirstPlayer, point.X, point.Y, row, column);
@@ -161,21 +157,21 @@ namespace Geometry
 
             int column = GetRandomNumberForFigure();
 
-            if (!isMove(row, column))
+            if (!IsMove(row, column))
             {
                 Console.WriteLine("Переброс...(Это может занять несколько секунд)");
 
-                Thread.Sleep(6000);
+                Thread.Sleep(4000);
 
                 row = GetRandomNumberForFigure();
 
                 column = GetRandomNumberForFigure();
 
-                if (!isMove(row, column))
+                if (!IsMove(row, column))
                 {
                     Console.WriteLine("Неудачно!!!");
 
-                    Thread.Sleep(6000);
+                    Thread.Sleep(4000);
 
                     SecondPlayer.Attempts--;
 
@@ -188,17 +184,13 @@ namespace Geometry
                     return;
                 }
             }
-            if (isMove(row, column))
+            if (IsMove(row, column))
             {
                 Point point = GetPointFromPlayer(SecondPlayer);
 
                 while (!IsChecked(point.X, point.Y, row, column))
                 {
                     point = GetPointFromPlayer(SecondPlayer);
-
-                    row = GetRandomNumberForFigure();
-
-                    column = GetRandomNumberForFigure();
                 }
 
                 GetFigureOnField(SecondPlayer, point.X, point.Y, row, column);
@@ -302,7 +294,7 @@ namespace Geometry
             }
         }
 
-        private bool isMove(int row, int column)
+        private bool IsMove(int row, int column)
         {
             int temp = 0;
 
